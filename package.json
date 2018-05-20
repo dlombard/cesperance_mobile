@@ -1,0 +1,42 @@
+{
+  "name": "CesperanceMobile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "algoliasearch": "^3.24.11",
+    "algoliasearch-helper": "^2.24.0",
+    "axios": "^0.17.1",
+    "bluebird": "^3.5.1",
+    "hashmap": "^2.3.0",
+    "lodash": "^4.17.5",
+    "moment": "^2.20.1",
+    "react": "16.2.0",
+    "react-native": "0.53.0",
+    "react-native-i18n": "^2.0.12",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-markdown-view": "^1.1.4",
+    "react-native-navigation": "^1.1.378",
+    "react-native-render-html": "^3.8.1",
+    "react-native-swipeable": "^0.6.0",
+    "react-native-vector-icons": "^4.5.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.9.0",
+    "redux-saga": "^0.16.0",
+    "shortid": "^2.2.8",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-jest": "22.2.2",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.3.0",
+    "react-test-renderer": "16.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

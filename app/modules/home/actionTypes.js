@@ -1,0 +1,6 @@
+export const START_APP = 'START_APP'
+export const FETCH_SONGS = 'FETCH_SONGS'
+export const CHECK_UPDATES = 'CHECK_UPDATES'
+export const CHECK_FIRST_LAUNCH = "CHECK_FIRST_LAUNCH"
+export const SET_SHOW_MODAL = "SET_SHOW_MODAL"
+export const LOAD_SONGS = "LOAD_SONGS"
