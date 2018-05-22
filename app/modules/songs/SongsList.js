@@ -24,9 +24,9 @@ export default class SongsList extends PureComponent {
         data={this.props.data}
         extraData={this.state}
         keyExtractor={this._keyExtractor}
-        renderItem={this._renderSong} 
-        ItemSeparatorComponent={({item}) => <View style={{ height: 1, backgroundColor: divColor }} />}
-        />
+        renderItem={this._renderSong}
+        ItemSeparatorComponent={({ item }) => <View style={{ height: 1, backgroundColor: divColor }} />}
+      />
     )
   }
 
@@ -50,7 +50,7 @@ export default class SongsList extends PureComponent {
 
   _calcDividerColor = (item) => {
     let dividerColor = 'black'
-  
+
     if (_.toUpper(item.book.abbrv) == 'CE') {
       dividerColor = '#2f65b6'
     }
@@ -72,7 +72,7 @@ export default class SongsList extends PureComponent {
     if (_.toUpper(item.book.abbrv) == 'GA') {
       dividerColor = '#0f93ef'
     }
-  
+
     return dividerColor
   }
 }

@@ -15,41 +15,32 @@ import {
 import { Navigation } from 'react-native-navigation'
 import { Provider } from 'react-redux';
 import configureStore from './store'
-import { persistStore} from 'redux-persist'
+import { persistStore } from 'redux-persist'
+import { navigatorStyle } from './styles/styles'
 
 const store = configureStore()
-registerScreens(store, Provider)
 
-const navigatorStyle = {
-  statusBarColor: 'black',
-  statusBarTextColorScheme: 'light',
-  navigationBarColor: 'black',
-  navBarBackgroundColor: '#354ABB',
-  navBarTextColor: 'white',
-  navBarButtonColor: 'white',
-  tabBarButtonColor: 'red',
-  tabBarSelectedButtonColor: 'red',
-  tabBarBackgroundColor: 'white',
-  topBarElevationShadowEnabled: false,
-  navBarHideOnScroll: true,
-  tabBarHidden: true,
-  drawUnderTabBar: true
-};
+export default () => {
 
-Navigation.startSingleScreenApp({
-  screen: {
-    screen: 'cereact.Home',
-    title: `Chant d'Esperance`,
-    navigatorStyle,
-    leftButtons: [
-      {
-        id: 'sideMenu'
+  persistStore(store, null, () => {
+    registerScreens(store, Provider)
+
+    Navigation.startSingleScreenApp({
+      screen: {
+        screen: 'cereact.Home',
+        title: `Chant d'Espérance`,
+        navigatorStyle,
+        leftButtons: [
+          {
+            id: 'sideMenu'
+          }
+        ]
+      },
+      drawer: {
+        left: {
+          screen: 'cereact.Drawer'
+        }
       }
-    ]
-  },
-  drawer: {
-    left: {
-      screen: 'cereact.Drawer'
-    }
-  }
-});
+    });
+  })
+}

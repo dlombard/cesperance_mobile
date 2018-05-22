@@ -29,15 +29,16 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         ...Platform.select({
-			ios: {
+            ios: {
                 fontWeight: '400',
                 fontFamily: 'HelveticaNeue-Medium'
-			},
-			android: {
-                fontWeight: '100',
-                fontFamily: 'Roboto'
-			}
-		}),
+            },
+            android: {
+                fontWeight: '400',
+                fontFamily: 'Roboto',
+                color: 'black'
+            }
+        }),
         fontSize: 15,
         paddingLeft: 5
     }

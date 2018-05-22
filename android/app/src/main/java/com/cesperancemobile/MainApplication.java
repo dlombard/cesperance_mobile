@@ -5,6 +5,7 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +24,10 @@ public class MainApplication extends NavigationApplication {
 com.facebook.react.modules.storage.ReactDatabaseSupplier.getInstance(getApplicationContext()).setMaximumSize(size);
         return Arrays.<ReactPackage>asList(
                 new RNI18nPackage(),
-                new RNSqlite2Package(),
+                //new RNSqlite2Package(),
                 new VectorIconsPackage(),
-                new LinearGradientPackage()
+                new LinearGradientPackage(),
+                new RNFetchBlobPackage()
         );
     }
 

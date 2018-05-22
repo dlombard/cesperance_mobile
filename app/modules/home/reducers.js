@@ -13,6 +13,21 @@ exports.startApp = (state = {}, action) => {
 
 }
 
+exports.rehydrate = (state = {}, action) => {
+  console.log(action.type)
+  switch (action.type) {
+    case 'persist/REHYDRATE':
+      console.log(action)
+      return Object.assign({}, state, {
+        t: action._id,
+        x: action.payload
+      })
+    default:
+      return state
+  }
+
+}
+
 exports.showLoadingModal = (state = { value: false }, action) => {
   switch (action.type) {
     case 'SHOW_LOADING_MODAL':

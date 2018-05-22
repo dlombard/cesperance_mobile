@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Helvetica Neue',
         color: 'black',
         fontSize: 16,
-		    fontWeight: '500',
+		fontWeight: '400',
         textAlign: 'center'
     }
 })

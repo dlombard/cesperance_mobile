@@ -11,11 +11,11 @@ class FavoritesListItem extends Component {
 
     render() {
         return (
-                <TouchableOpacity onPress={this.props.handler}>
-                    <View style={[styles.box, this.props.box || {}]} >
-                        <Text style={styles.textStyle}>{this.props.song.num}. {this.props.song.title}</Text>
-                    </View >
-                </TouchableOpacity>
+            <TouchableOpacity onPress={this.props.handler}>
+                <View style={[styles.box, this.props.box || {}]} >
+                    <Text style={styles.textStyle}>{this.props.song.num}. {this.props.song.title}</Text>
+                </View >
+            </TouchableOpacity>
         )
     }
 }
@@ -38,8 +38,9 @@ const styles = StyleSheet.create({
                 fontFamily: 'HelveticaNeue-Medium'
             },
             android: {
-                fontWeight: '100',
-                fontFamily: 'Roboto'
+                fontWeight: '400',
+                fontFamily: 'Roboto',
+                color: 'black'
             }
         }),
         fontSize: 15,

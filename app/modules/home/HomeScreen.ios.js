@@ -15,7 +15,6 @@ import MenuButton from '../MenuButton'
 
 export let homeNavigator = null
 const navigatorButtons = (navigator) => {
-  console.log(navigator)
   return {
     leftButtons: [{
       component: 'CustomButton',
@@ -136,7 +135,8 @@ export default class HomeScreen extends PureComponent {
     }
     this.props.actions.loadSongs(book, language)
     this.props.navigator.push({
-      screen: "cereact.Songs"
+      screen: "cereact.Songs",
+      title
     })
   }
   _navigateToSearch() {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     margin: 20,
-    marginTop: 50
+    marginTop: 20
 
   },
   rowView: {

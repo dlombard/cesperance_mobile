@@ -30,15 +30,6 @@ export default class Songs extends PureComponent {
     if (this.props.songs.length > 0) {
       return (
         <View style={{ padding: 6 }}>
-          <TextInput
-            style={{ height: 40, borderColor: '#354ABB', borderWidth: 1, borderRadius: 1, marginTop: 10, paddingLeft: 5 }}
-            placeholder=''
-            returnKeyType='search'
-            multiline={false}
-            maxLength={30}
-            onChangeText={(text) => this._onFilterChange(text)}
-            autoCorrect={false}>
-          </TextInput>
           <FavoritesList
             data={this.props.songs}
             onSelectedSong={this._onSelectedSong}

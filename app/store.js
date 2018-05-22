@@ -8,10 +8,12 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-
-const persistConfig = {
+import FilesystemStorage from 'redux-persist-filesystem-storage'
+import { Platform } from 'react-native';
+console.log(`Platform: ${Platform.OS}`)
+let persistConfig = {
   key: 'root',
-  storage,
+  storage: Platform.OS === 'ios' ? storage : FilesystemStorage,
 }
 const sagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({

@@ -15,20 +15,34 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import I18n from '../../utils/Translations'
 import * as Tools from '../../utils/Tools'
 import { navigatorStyle } from '../../styles/styles'
+import HTML from 'react-native-render-html';
 
 export default class SongScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      song: this.props.song,
-      isFavorite: this.props.isFavorite,
-      lyrics: Tools.lyricsToJSX(this.props.song.lyrics),
-      starName: 'ios-star-outline',
+      song: props.song,
+      isFavorite: props.isFavorite,
+      lyrics: Tools.htmlToJSX(props.song.lyrics_Markdown.html),
+      starName: 'ios-heart-outline',
       disabled: true
     }
+    console.log(this.props.navigator)
+    this.props.navigator.setButtons({
+      rightButtons: [{
+        component: 'FavoritesButton',
+        id: 'favs',
+        showAsAction: 'always',
+        passProps: {
+          setFavorite: this._updateFavorite,
+          icon: this.props.icon
+        }
+      }
+      ]
+    });
   }
-  componentWillMount() {
-
+  componentDidMount() {
+    Icon.getImageSource(this.props.icon, 20, 'red').then((source) => this.setState({ userIcon: source }));
   }
 
   componentWillUnmount() {
@@ -37,16 +51,23 @@ export default class SongScreen extends Component {
   _onSongChanged = () => {
 
   }
+  componentWillReceiveProps(nextProps) {
 
-  _onAddedToFavs = () => {
-    this.setState({
-      starName: 'favorite'
-    })
+    nextProps.navigator.setButtons({
+      rightButtons: [{
+        component: 'FavoritesButton',
+        id: 'favs',
+        passProps: {
+          setFavorite: this._updateFavorite,
+          icon: nextProps.icon,
+        }
+      }
+      ]
+    });
+
   }
-  _onRemovedFromFavs = () => {
-    this.setState({
-      starName: 'favorite_border'
-    })
+  _updateFavorite = () => {
+    this.props.actions.setFavorite(this.props.isFavorite)
   }
   componentDidMount() {
 
@@ -62,7 +83,7 @@ export default class SongScreen extends Component {
 
     const titleConfig = {
       title: `${this.state.song.num}. ${this.state.song.title}`,
-      tintColor: 'white'
+      tintColor: 'black'
     }
 
 
@@ -72,28 +93,13 @@ export default class SongScreen extends Component {
     }
 
     return (
-      <View>
+      <View style={{ backgroundColor: 'white', flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}
           maximumZoomScale={2.0} >
-            {this.state.lyrics}
+          <HTML html={this.state.lyrics} tagsStyles={{ p: { textAlign: 'center', fontSize: 17, color: '#070707' }, strong: { fontWeight: '600', fontSize: 17 } }} />
           <View style={{ height: 10 }}>
           </View>
         </ScrollView>
-        <Icon.ToolbarAndroid
-          title={`${this.state.song.num}. ${this.state.song.title}`}
-          style={styles.toolbar}
-          actions={[{
-            iconName: 'star',
-            title: `${I18n.t('favorites')}`,
-            onPress: this._updateFav(),
-            disabled: this.state.disabled
-          }, {
-            navIconName: 'share',
-            title: `${I18n.t('share')}`,
-            onActionSelected: console.log('HI')
-          }]}
-        >
-        </Icon.ToolbarAndroid>
       </View>
     )
   }
@@ -101,7 +107,7 @@ export default class SongScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 76,
+    marginTop: 50,
     margin: 20,
     alignItems: 'center',
   },

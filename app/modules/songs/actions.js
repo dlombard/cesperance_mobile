@@ -14,3 +14,10 @@ exports.setSong = (song) => {
     song
   }
 }
+
+exports.filterSongs = (filter) => {
+  return {
+    type: actions.FILTER_SONGS,
+    filter
+  }
+}

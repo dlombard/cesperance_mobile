@@ -7,9 +7,9 @@ import {
 import { navigatorStyle } from '../styles/styles'
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
-
 import styles from './styles/Drawer';
 import { homeNavigator } from './home/HomeScreen'
+import I18n from '../utils/Translations'
 
 class Drawer extends Component {
 	constructor(props) {
@@ -23,7 +23,9 @@ class Drawer extends Component {
 	_openSearch() {
 		this._toggleDrawer();
 		homeNavigator.push({
-			screen: "cereact.Search"
+			screen: "cereact.Search",
+			navigatorStyle,
+			title: I18n.t('search')
 		})
 	}
 
@@ -31,7 +33,9 @@ class Drawer extends Component {
 	_openFavorites = () => {
 		this._toggleDrawer();
 		homeNavigator.push({
-			screen: "cereact.Favorites"
+			screen: "cereact.Favorites",
+			navigatorStyle,
+			title: I18n.t('favorites')
 		})
 	}
 	_goToChants() {
@@ -64,23 +68,16 @@ class Drawer extends Component {
 						<TouchableOpacity onPress={this._openSearch}>
 							<View style={styles.drawerListItem}>
 								{iconSearch}
-								<Text style={styles.drawerListItemText}>
-									Search
+								<Text style={styles.drawerListItemText} key='search'>
+									{I18n.t('search')}
 								</Text>
 							</View>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={this._openFavorites}>
 							<View style={styles.drawerListItem}>
 								{iconFavorites}
-								<Text style={styles.drawerListItemText}>
-									Favorites
-								</Text>
-							</View>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={this._goToChants}>
-							<View style={styles.drawerListItem}>
-								<Text style={styles.drawerListItemText}>
-									Movies
+								<Text style={styles.drawerListItemText} key='fav'>
+									{I18n.t('favorites')}
 								</Text>
 							</View>
 						</TouchableOpacity>

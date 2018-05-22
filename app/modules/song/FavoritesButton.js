@@ -10,21 +10,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 class FavoritesButton extends PureComponent {
   constructor(props) {
     super(props);
-    console.log(props)
   }
 
 
   _toggleFav() {
-    console.log(this.props)
     this.props.setFavorite(this.props.isFavorite)
   }
 
   render() {
     return (
       <TouchableOpacity
+        style={[styles.rightButton]}
         onPress={() => this._toggleFav()}
       >
-        <Icon name={this.props.icon} style={styles.button} size={20} />
+        <View style={[styles.rightButton]}>
+          <Icon name={this.props.icon} style={styles.button} size={28} />
+        </View>
       </TouchableOpacity>
     )
   }
@@ -32,10 +33,16 @@ class FavoritesButton extends PureComponent {
 
 const styles = StyleSheet.create({
   button: {
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
     color: 'white'
   },
+  rightButton: {
+    overflow: 'hidden',
+    width: 34,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10
+  }
 });
 export default FavoritesButton;

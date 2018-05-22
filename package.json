@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@material-ui/core": "^1.0.0",
     "algoliasearch": "^3.24.11",
     "algoliasearch-helper": "^2.24.0",
     "axios": "^0.17.1",
@@ -21,11 +22,13 @@
     "react-native-markdown-view": "^1.1.4",
     "react-native-navigation": "^1.1.378",
     "react-native-render-html": "^3.8.1",
+    "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-swipeable": "^0.6.0",
     "react-native-vector-icons": "^4.5.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-persist": "^5.9.0",
+    "redux-persist-filesystem-storage": "^1.2.0",
     "redux-saga": "^0.16.0",
     "shortid": "^2.2.8",
     "uuid": "^3.2.1"

@@ -21,8 +21,8 @@ export function htmlToJSX(lyrics) {
 
         returnValue.push(line)
     }
-    
-    return _.join(returnValue,"")
+
+    return _.join(returnValue, "")
 }
 export function lyricsToJSX(lyrics) {
 
@@ -118,4 +118,21 @@ export function lyricsToHTML(e) {
     }
     l = l.concat("</p></br></div></body></html>")
     return l
+}
+
+export function removeAccentsByRegex(s) {
+    var r = s.toLowerCase();
+    r = r.replace(new RegExp("\\s", 'g'), "");
+    r = r.replace(new RegExp("[àáâãäå]", 'g'), "a");
+    r = r.replace(new RegExp("æ", 'g'), "ae");
+    r = r.replace(new RegExp("ç", 'g'), "c");
+    r = r.replace(new RegExp("[èéêë]", 'g'), "e");
+    r = r.replace(new RegExp("[ìíîï]", 'g'), "i");
+    r = r.replace(new RegExp("ñ", 'g'), "n");
+    r = r.replace(new RegExp("[òóôõö]", 'g'), "o");
+    r = r.replace(new RegExp("œ", 'g'), "oe");
+    r = r.replace(new RegExp("[ùúûü]", 'g'), "u");
+    r = r.replace(new RegExp("[ýÿ]", 'g'), "y");
+    r = r.replace(new RegExp("\\W", 'g'), "");
+    return r;
 }

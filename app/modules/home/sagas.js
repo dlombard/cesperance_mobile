@@ -19,6 +19,7 @@ function* checkUpdates() {
   try {
 
     const lastUpdate = yield select(state => state.lastUpdate)
+    console.log(`lastUpdate: ${JSON.stringify(lastUpdate)}`)
     if (lastUpdate.time > moment(0).utc().format()) {
       yield put.resolve({ type: "FETCH_UPDATES", lastUpdate, now })
     }
@@ -86,6 +87,7 @@ function* insertSongs(action) {
       const songsById = yield call(() => {
         let x = {}
         songs.forEach(song => {
+          delete song.lyrics
           const id = song._id
           x[id] = song
         })
@@ -103,6 +105,7 @@ function* setSongsState(updates) {
   const nodes = yield select(state => state.songs.nodes)
 
   updates.forEach(item => {
+    delete item.lyrics
     nodes[item._id] = item
   })
 
@@ -111,6 +114,7 @@ function* setSongsState(updates) {
 }
 function* updateLastUpdatesDB(action) {
   const now = action.now
+  console.log(`now: ${JSON.stringify(now)}`)
   switch (action.type) {
     case 'SONGS_UPDATES_COMPLETED':
       yield put({ type: "LAST_UPDATE", time: now })

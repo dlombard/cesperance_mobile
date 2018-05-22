@@ -7,7 +7,7 @@ function mapStateToProps(state, ownProps) {
   return {
     selectedBook: state.selectedSongs.book,
     selectedLanguage: state.selectedSongs.language,
-    songs: state.selectedSongs.songs
+    songs: state.selectedSongs.filteredSongs
   };
 }
 

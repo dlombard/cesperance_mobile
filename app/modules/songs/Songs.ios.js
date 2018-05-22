@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, TextInput, SegmentedControlIOS } from 'react-native'
 import SongsList from './SongsList'
 import { navigatorStyle } from '../../styles/styles'
+import I18n from '../../utils/Translations'
 
 export default class Songs extends PureComponent {
   constructor(props) {
@@ -20,14 +21,14 @@ export default class Songs extends PureComponent {
     })
   }
   _onFilterChange = (text) => {
-
+    this.props.actions.filterSongs(text)
   }
   render() {
     return (
       <View style={{ padding: 6 }}>
         <SegmentedControlIOS
           tintColor='#354ABB'
-          values={['Francais', 'Kreyol']}
+          values={[I18n.t('fr'), I18n.t('ht')]}
           selectedIndex={this.state.selectedIndex}
           onChange={(event) => {
             this.setState({ selectedIndex: event.nativeEvent.selectedSegmentIndex }, () => {

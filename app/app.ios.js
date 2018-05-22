@@ -49,7 +49,7 @@ export default () => {
     Navigation.startSingleScreenApp({
       screen: {
         screen: 'cereact.Home',
-        title: `Chant d'Esperance`,
+        title: `Chant d'Espérance`,
         navigatorStyle
       },
       drawer: {

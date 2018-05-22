@@ -11,7 +11,7 @@ import {
 import ImageButton from '../../Components/ImageButton'
 import * as Strings from '../../utils/Strings'
 import LoadingModal from './LoadingModal'
-
+import { navigatorStyle } from '../../styles/styles'
 export let homeNavigator = null
 
 export default class HomeScreen extends PureComponent {
@@ -97,12 +97,14 @@ export default class HomeScreen extends PureComponent {
     }
     this.props.actions.loadSongs(book, language)
     this.props.navigator.push({
-      screen: "cereact.Songs"
+      screen: "cereact.Songs",
+      navigatorStyle,
+      title
     })
   }
   _navigateToSearch() {
     this.props.navigator.push({
-      screen: "cereact.Search"
+      screen: "cereact.Search",
       //sceneConfig: Navigator.SceneConfigs.FloatFromLeft
     })
   }
@@ -118,8 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     margin: 20,
-    marginTop: 76
-
+    marginTop: 20
   },
   rowView: {
     flexDirection: 'row',

@@ -4,7 +4,8 @@ exports.selectedSongs = (state = {}, action) => {
       return Object.assign({}, state, {
         book: action.book,
         language: action.language,
-        songs: action.songs
+        songs: action.songs,
+        filteredSongs: action.filteredSongs
       })
     default:
       return state
