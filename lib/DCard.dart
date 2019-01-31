@@ -39,9 +39,8 @@ class DCard extends StatelessWidget {
             children: <Widget>[
               Container(
                   alignment: Alignment.centerLeft,
-                  height: height,
                   width: 10,
-                  color: Colors.blue,
+                  color: Color.fromARGB(255, 28, 70, 106),
                   margin: EdgeInsets.fromLTRB(0, 0, 10, 0)),
               text
             ],

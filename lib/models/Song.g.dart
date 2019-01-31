@@ -12,13 +12,11 @@ Song _$SongFromJson(Map<String, dynamic> json) {
       json['title'] as String,
       json['num'] as int,
       json['language'] as String,
-      json['lyrics'] as String,
-      json['lyrics_Markdown'] == null
-          ? null
-          : Lyrics.fromJson(json['lyrics_Markdown'] as Map<String, dynamic>),
-      json['book'] == null
-          ? null
-          : Book.fromJson(json['book'] as Map<String, dynamic>));
+      json['markdown_lyrics'] as String,
+      json['html_lyrics'] as String,
+      json['book_abbrv'] as String,
+      json['created_at'] as String,
+      json['updated_at'] as String);
 }
 
 Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
@@ -26,7 +24,9 @@ Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'title': instance.title,
       'num': instance.num,
       'language': instance.language,
-      'lyrics': instance.lyrics,
-      'lyrics_Markdown': instance.mdlyrics,
-      'book': instance.book
+      'markdown_lyrics': instance.markdown_lyrics,
+      'html_lyrics': instance.html_lyrics,
+      'book_abbrv': instance.book_abbrv,
+      'created_at': instance.created_at,
+      'updated_at': instance.updated_at
     };

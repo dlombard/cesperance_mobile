@@ -38,7 +38,6 @@ class Help extends StatelessWidget {
                 padding: EdgeInsets.all(5.0),
                 child: ListView.separated(
                   itemBuilder: (context, i) {
-                    print(items.elementAt(i).toString());
                     return Container(
                         color: Colors.white,
                         child: ListTile(

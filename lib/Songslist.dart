@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/models/Song.dart';
+import 'package:cesperance/models/Song.dart';
 import 'SongDetailScreen.dart';
 import 'StitchChannel.dart';
-import 'package:startup_namer/models/Book.dart';
+import 'package:cesperance/models/Book.dart';
 import 'App_localizations.dart';
 import 'BaseContainer.dart';
 import 'NoNetworkAlertDialog.dart';
+import 'dart:async';
 final StitchChannel stitchChannel = new StitchChannel();
 
 class SongsBase extends StatelessWidget {
@@ -56,14 +57,20 @@ class SongsState extends State<Songs> {
       future: getSongs(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data != null) {
+          if (snapshot.data != null && snapshot.data.length > 0) {
             return Container(
                 decoration: BoxDecoration(color: Colors.white),
                 child: _buildSongsList(snapshot));
-          } else {
+          } else if (snapshot.data !=null && snapshot.data.length == 0){
+           return Container(
+             decoration: BoxDecoration(color: Colors.white),
+             child: AlertDialog(title: Text('NO SONGS OBTAINED FROM Stitch'),)
+           );
+          } else{
             return new CircularProgressIndicator();
           }
         } if(snapshot.hasError){
+          print(snapshot.error.toString());
           return NoNetworkAlertDialog();
         }else {
           return Container(
@@ -114,9 +121,9 @@ class SongsState extends State<Songs> {
     }));
   }
 
-  Future<void> getSongs() async {
+  Future<void> getSongs()  {
     try {
-      return await stitchChannel.fetchSongs(widget.book.abbrv, widget.language);
+      return  stitchChannel.getSongs(widget.book.abbrv, widget.language);
     }catch (e) {
       print(e.message);
      throw e;

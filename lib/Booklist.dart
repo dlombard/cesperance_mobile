@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'StitchChannel.dart';
 import 'DCard.dart';
 import 'Songslist.dart';
-import 'package:startup_namer/models/Book.dart';
+import 'package:cesperance/models/Book.dart';
 
 class Booklist extends StatefulWidget {
   @override
@@ -20,6 +20,8 @@ class MyListState extends State<Booklist> {
     new Book(name: "Réveillons-Nous", abbrv: "RN"),
     new Book(name: "Échos des Élus", abbrv: "EE"),
     new Book(name: "Haïti Chante avec Radio Lumière", abbrv: "HC"),
+    new Book(name: "Gloire à l'Agneau", abbrv: "GA"),
+    new Book(name: "L'Ombre du Réveil", abbrv: "OR"),
   ];
 
   @override
@@ -41,7 +43,7 @@ class MyListState extends State<Booklist> {
   Widget _buildRow(Book book) {
     return DCard(
         margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
-        height: 100,
+        height: 65,
         boxDecoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(

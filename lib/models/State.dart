@@ -1,4 +1,4 @@
-import 'package:startup_namer/models/Song.dart';
+import 'package:cesperance/models/Song.dart';
 
 class StateModel {
   bool isLoading;

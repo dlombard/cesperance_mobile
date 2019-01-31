@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/models/Song.dart';
+import 'package:cesperance/models/Song.dart';
 import 'SongDetailScreen.dart';
 import 'models/State.dart';
-import 'App.dart';
+import 'utils.dart';
+
+Utils utils = new Utils();
 
 class Favorites extends StatefulWidget {
   @override
@@ -21,35 +23,44 @@ class FavoritesState extends State<Favorites> {
 
   @override
   Widget build(BuildContext context) {
-    final AppState state = AppStateWidget.of(context);
-    favorites = state.favorites;
+   return FutureBuilder(
+        future: utils.getFavorites(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data != null ) {
+              if( snapshot.data.length > 0){
+                return Container(
+                    decoration:
+                    BoxDecoration(color: Color.fromARGB(255, 249, 249, 249)),
+                    child: _buildFavoritesList(snapshot));
+              } else{
+                return Container(
+                    decoration: BoxDecoration(color: Color.fromARGB(255, 249, 249, 249)),
+                    child: Center(
+                      child: Text("No Favorites"),
+                    ));
+              }
 
-    if (favorites != null) {
-      if (favorites.length > 0) {
-        return Container(
-            decoration:
-                BoxDecoration(color: Color.fromARGB(255, 249, 249, 249)),
-            child: _buildFavoritesList(favorites));
-      } else {
-        return Center(
-          child: Text("No Favorites"),
-        );
-      }
-    } else {
-      return Container(
-          decoration: BoxDecoration(color: Color.fromARGB(255, 249, 249, 249)),
-          child: Center(
-            child: Text("No Favorites"),
-          ));
-    }
+            } else {
+              return new CircularProgressIndicator();
+            }
+          } else{
+            return Container(
+                decoration: BoxDecoration(color: Color.fromARGB(255, 249, 249, 249)),
+                child: Center(
+                  child: Text("No Favorites"),
+                ));
+          }
+        });
+
   }
 
-  Widget _buildFavoritesList(List<Song> snapshot) {
+  Widget _buildFavoritesList(AsyncSnapshot snapshot) {
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
-      itemCount: snapshot.length,
+      itemCount: snapshot.data.length,
       itemBuilder: (context, i) {
-        return _buildRow(snapshot.elementAt(i));
+        return _buildRow(snapshot.data.elementAt(i));
       },
       separatorBuilder: (context, i) {
         return Divider(color: Colors.blue, height: 5.0);
@@ -58,7 +69,7 @@ class FavoritesState extends State<Favorites> {
   }
 
   Widget _buildRow(Song song) {
-    String subtitle = "${song.book.name} ${song.language}";
+    String subtitle = "${song.book_abbrv} ${song.language}";
     String title = song.num.toString() + ". " + song.title;
     return Container(
         color: Colors.white,
@@ -79,4 +90,6 @@ class FavoritesState extends State<Favorites> {
       return new SongDetailScreen(song: song);
     }));
   }
+
+
 }

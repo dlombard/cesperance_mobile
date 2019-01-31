@@ -15,32 +15,39 @@ class Home extends StatefulWidget {
 
 class HomePageState extends State<Home> {
   int _selectedIndex = 1;
-  final widgets = [Search(), Booklist(), Favorites()];
+  Widget _currentTitle;
+  String search;
+  String home;
+  String favorites;
+  List<Map<String, Object>> widgets;
+  List<String> popupOptions;
 
   @override
   Widget build(BuildContext context) {
-    List<String> popupOptions = [AppLocalizations.of(context).help];
-    String search = AppLocalizations.of(context).search;
-    String home = AppLocalizations.of(context).home;
-    String favorites = AppLocalizations.of(context).favorites;
-
+    popupOptions = [AppLocalizations.of(context).help];
+    search = AppLocalizations.of(context).search;
+    home = AppLocalizations.of(context).home;
+    favorites = AppLocalizations.of(context).favorites;
+    _currentTitle = Text("Chant d'Espérance", style: TextStyle(color: Colors.white));
+    widgets = [
+      {"title": search, "child": Search()},
+      {"title": home, "child": Booklist()},
+      {"title": favorites, "child": Favorites()}
+    ];
     return BaseContainer(
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              title: Text("Chant d'Espérance",
-                  style: TextStyle(color: Colors.white)),
-              elevation: 1,
+              title: _currentTitle,
+              elevation: 4.0,
               backgroundColor: Colors.transparent,
               actions: <Widget>[
                 PopupMenuButton<String>(
                   onSelected: _selectedPopUp,
-                  itemBuilder: (BuildContext context){
-                    return popupOptions.map((String choice){
+                  itemBuilder: (BuildContext context) {
+                    return popupOptions.map((String choice) {
                       return PopupMenuItem<String>(
-                        value: choice,
-                        child: Text(choice)
-                      );
+                          value: choice, child: Text(choice));
                     }).toList();
                   },
                 )
@@ -59,18 +66,21 @@ class HomePageState extends State<Home> {
               onTap: _onItemTapped,
             ),
             body: Center(
-              child: widgets.elementAt(_selectedIndex),
+
+              child: widgets.elementAt(_selectedIndex)["child"],
             )));
   }
 
-  void _selectedPopUp(String choice){
+  void _selectedPopUp(String choice) {
     Navigator.of(context)
         .push(new MaterialPageRoute<void>(builder: (BuildContext context) {
       return Help();
     }));
   }
+
   void _onItemTapped(int index) {
     setState(() {
+      _currentTitle = Text(widgets.elementAt(index)["title"], style: TextStyle(color: Colors.white));
       _selectedIndex = index;
     });
   }

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.startupnamer">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.dlombard.cesperance">
 
     <!-- The INTERNET permission is required for development. Specifically,
          flutter needs it to communicate with the running application
@@ -15,7 +16,11 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Le Chant d'Espérance"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4264401776338564~2548809350"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -30,6 +35,7 @@
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
                 android:value="true" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

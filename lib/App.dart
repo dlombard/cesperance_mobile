@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:device_info/device_info.dart';
-import 'StitchChannel.dart';
 import 'models/State.dart';
-import 'package:flutter/services.dart';
-import 'package:startup_namer/models/Song.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
+final appId = 'ca-app-pub-4264401776338564~2548809350';
 class _InheritedStateContainer extends InheritedWidget {
   final AppState data;
   const _InheritedStateContainer({
@@ -20,8 +18,8 @@ class _InheritedStateContainer extends InheritedWidget {
 class AppStateWidget extends StatefulWidget {
   AppStateWidget({@required this.child,});
 
+
   final Widget child;
- // final StateModel state;
 
   static AppState of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(_InheritedStateContainer)
@@ -34,49 +32,12 @@ class AppStateWidget extends StatefulWidget {
 }
 
 class AppState extends State<AppStateWidget> {
-  StitchChannel _stitchService;
   StateModel state = new StateModel(isLoading: true);
   @override
   void initState() {
     super.initState();
-    _stitchService = StitchChannel();
-    StitchChannel.platform.setMethodCallHandler((MethodCall call){
-      switch(call.method){
-        case "reloadFavorites":
-          loadFavorites();
-          break;
-        default:
-          break;
-      }
-    });
-    getDeviceId().then((onValue) {
-      loadFavorites();
-    });
-  }
 
-  List<Song> get favorites => state.favorites;
-
-  void loadFavorites()  {
-    if (state.deviceId == null) getDeviceId();
-    try {
-      _stitchService.getFavorites(state.deviceId).then((docs){
-        print(docs.length);
-        setState((){
-          state.favorites = docs;
-        });
-      }
-      );
-
-    }catch(e){
-      print(e);
-    }
-  }
-
-  Future<void> getDeviceId() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    state.deviceId = androidInfo.androidId;
-    print(state.deviceId);
+    FirebaseAdMob.instance.initialize(appId: appId);
   }
 
   @override
