@@ -254,10 +254,9 @@ public class MainActivity extends FlutterActivity {
 
         Song s = new Song().fromJson(json);
         Document doc = s.toDocument();
+        UpdateResult result = songs.updateOne(new Document("_id", doc.getObjectId("_id")), new Document("$set", doc));
 
-        //String id = doc.getString("_id");
-        doc.remove("_id");
-        return songs.updateOne(new Document("_id", doc.getObjectId("_id")), new Document("$set", doc));
+        return result;
     }
 
     List<Document> getSongsFromIds(List<ObjectId> ids) {
@@ -316,7 +315,7 @@ public class MainActivity extends FlutterActivity {
                 docs.add(_s.toDocument());
             }
             songs.insertMany(docs);
-
+            Log.d("PRELOAD", songs.find().first().toJson());
 
     }
 

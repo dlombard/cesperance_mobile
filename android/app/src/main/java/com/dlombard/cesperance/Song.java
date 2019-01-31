@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Song {
+
     private String _id;
     private String title;
     private int num;
@@ -26,12 +27,16 @@ public class Song {
     private Date created_at;
     private Date updated_at;
     private static SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private static Type type = new TypeToken<Song>() {}.getType();
-    private static Type songArrayType = new TypeToken<List<Song>>() {}.getType();
+    private static Type type = new TypeToken<Song>() {
+    }.getType();
+    private static Type songArrayType = new TypeToken<List<Song>>() {
+    }.getType();
     private static Gson gson = new Gson();
 
-    public Song(){}
-    public Song(Document document){
+    public Song() {
+    }
+
+    public Song(Document document) {
         _id = document.getObjectId("_id").toHexString();
         title = document.getString("title");
         num = document.getInteger("num");
@@ -116,24 +121,27 @@ public class Song {
         this.updated_at = updated_at;
     }
 
-    public Document toDocument(){
-        return new Document().append("_id", new ObjectId(_id)).append("title", title).append("num", num).append("book_abbrv", book_abbrv).append("language",language).append("markdown_lyrics", markdown_lyrics).append("html_lyrics", html_lyrics). append("created_at", created_at).append("updated_at", updated_at);
+    public Document toDocument() {
+        return new Document().append("_id", new ObjectId(_id)).append("title", title).append("num", num).append("book_abbrv", book_abbrv).append("language", language).append("markdown_lyrics", markdown_lyrics).append("html_lyrics", html_lyrics).append("created_at", created_at).append("updated_at", updated_at);
     }
 
-    public Song fromJson(String json) throws JSONException{
+    public Song fromJson(String json) throws JSONException {
         JSONObject j = new JSONObject(json);
 
         return gson.fromJson(j.toString(), type);
     }
+
     public List<Song> fromJsonArray(String jsonArray) throws JSONException {
 
-            JSONArray jArray = new JSONArray(jsonArray);
-            return gson.fromJson(jArray.toString(), songArrayType);
+        JSONArray jArray = new JSONArray(jsonArray);
+        return gson.fromJson(jArray.toString(), songArrayType);
 
     }
-    public String toJson(){
+
+    public String toJson() {
         return gson.toJson(this);
     }
+
     @Override
     public String toString() {
         return "Song{" +

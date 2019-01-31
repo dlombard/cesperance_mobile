@@ -9,11 +9,12 @@ class GrpcClientSingleton {
 
   GrpcClientSingleton._internal() {
     try{
+
       channel = ClientChannel("grpc.cesperance.com", // Your IP here, localhost might not work.
-          port: 50051,
+          port: 1443,
           options: ChannelOptions(
             //TODO: Change to secure with server certificates
-            credentials: ChannelCredentials.insecure(),
+            credentials: ChannelCredentials.secure(),
             idleTimeout: Duration(minutes: 1),
           ));
 
@@ -25,3 +26,4 @@ class GrpcClientSingleton {
 
   }
 }
+
