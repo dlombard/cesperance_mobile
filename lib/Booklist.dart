@@ -22,6 +22,7 @@ class MyListState extends State<Booklist> {
     new Book(name: "Haïti Chante avec Radio Lumière", abbrv: "HC"),
     new Book(name: "Gloire à l'Agneau", abbrv: "GA"),
     new Book(name: "L'Ombre du Réveil", abbrv: "OR"),
+    new Book(name: "Réveillons-Nous Chrétiens", abbrv: "RNC"),
   ];
 
   @override
