@@ -10,8 +10,11 @@ public class _Stitch {
     private MongoClient mongoClient;
 
     _Stitch(){
-        this.client =
-                Stitch.initializeDefaultAppClient("cesperanceapp-iivvt");
+        if(!Stitch.hasAppClient("cesperanceapp-iivvt")){
+            this.client =
+                    Stitch.initializeDefaultAppClient("cesperanceapp-iivvt");
+        }
+
         this.mongoClient = this.client.getServiceClient(LocalMongoDbService.clientFactory);
 
     }
