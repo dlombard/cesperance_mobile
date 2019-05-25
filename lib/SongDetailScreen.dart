@@ -3,8 +3,6 @@ import 'package:cesperance/models/Song.dart';
 import 'StitchChannel.dart';
 import 'BaseContainer.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:cesperance/commons/Ads.dart';
 import 'dart:async';
 
 class SongDetailScreen extends StatefulWidget {
@@ -15,10 +13,6 @@ class SongDetailScreen extends StatefulWidget {
 }
 
 class SongDetailState extends State<SongDetailScreen> {
-  BannerAd bannerAd = BannerAd(
-      adUnitId: "ca-app-pub-4264401776338564/2947306743",
-      targetingInfo: Ads().getTargetingInfo(),
-      size: AdSize.banner);
   final StitchChannel _stitchChannel = new StitchChannel();
   double _initialSize;
   double fontSize;
@@ -44,15 +38,11 @@ class SongDetailState extends State<SongDetailScreen> {
 
   @override
   void dispose() {
-    bannerAd.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    bannerAd
-      ..load()
-      ..show(anchorOffset: 10, anchorType: AnchorType.bottom);
     return BaseContainer(
         child: new GestureDetector(
             onScaleUpdate: (ScaleUpdateDetails scaleDetails) {
@@ -96,13 +86,15 @@ class SongDetailState extends State<SongDetailScreen> {
                   children: <Widget>[
                     Expanded(
                         child: Container(
-                            decoration: BoxDecoration(color: Colors.white, ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
                             child: songHTML(widget.song))),
                   ],
                 ))));
   }
 
- void toggleFavorite() {
+  void toggleFavorite() {
     setState(() {
       isFavorite = !isFavorite;
     });
@@ -134,11 +126,12 @@ class SongDetailState extends State<SongDetailScreen> {
   Widget songHTML(song) {
     return SingleChildScrollView(
       child: Html(
-          runAlignment: WrapAlignment.start,
-          containerAlignment: Alignment.topCenter,
-          defaultTextStyle: TextStyle(fontSize: fontSize),
-          data: song.html_lyrics,
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 50),),
+        runAlignment: WrapAlignment.start,
+        containerAlignment: Alignment.topCenter,
+        defaultTextStyle: TextStyle(fontSize: fontSize),
+        data: song.html_lyrics,
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+      ),
     );
   }
 }

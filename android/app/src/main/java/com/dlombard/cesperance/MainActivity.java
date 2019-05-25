@@ -1,12 +1,8 @@
 package com.dlombard.cesperance;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.mongodb.MongoBulkWriteException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Aggregates;
@@ -15,7 +11,6 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.auth.StitchUser;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 
 import org.bson.Document;
@@ -41,7 +36,6 @@ public class MainActivity extends FlutterActivity {
     private MethodChannel stitchChannel;
     private List<Document> defaultLocalDocuments = new ArrayList<>();
     private static final String CHANNEL = "ce.dlo.io/Stitch";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +45,14 @@ public class MainActivity extends FlutterActivity {
         initStitch();
     }
 
-    Task<StitchUser> initStitch() {
+    void initStitch() {
         defaultLocalDocuments.add(new Document("internalId", "onboarding").append("onboardingDone", false));
         defaultLocalDocuments.add(new Document("internalId", "songsState").append("songsPreloaded", false));
 
-        return stitch.getClient().getAuth().loginWithCredential(new AnonymousCredential());
+        if(!stitch.getClient().getAuth().isLoggedIn()){
+            stitch.getClient().getAuth().loginWithCredential(new AnonymousCredential());
+        }
+
     }
 
     void initStitchChannel() {
@@ -65,34 +62,24 @@ public class MainActivity extends FlutterActivity {
 
                 switch (methodCall.method) {
                     case "initStitch":
-                        initStitch().addOnSuccessListener(new OnSuccessListener<StitchUser>() {
-                        @Override
-                        public void onSuccess(StitchUser stitchUser) {
-                            favs = stitch.getMongoClient().getDatabase("chants_desperance").getCollection("favorites");
-                            songs = stitch.getMongoClient().getDatabase("chants_desperance").getCollection("songs");
-                            localColl = stitch.getMongoClient().getDatabase("chants_desperance").getCollection("meta");
+                        initStitch();
+                        favs = stitch.getMongoClient().getDatabase("chants_desperance").getCollection("favorites");
+                        songs = stitch.getMongoClient().getDatabase("chants_desperance").getCollection("songs");
+                        localColl = stitch.getMongoClient().getDatabase("chants_desperance").getCollection("meta");
 
 
-                            songs.createIndex(new Document("book_abbrv", 1).append("language",1).append("num", 1));
-                            songs.createIndex(new Document("updated_at", -1));
-                            localColl.createIndex(new Document("internalId", 1));
+                        songs.createIndex(new Document("book_abbrv", 1).append("language",1).append("num", 1));
+                        songs.createIndex(new Document("updated_at", -1));
+                        localColl.createIndex(new Document("internalId", 1));
 
-                            List<Document> d = new ArrayList<>();
-                            long count = localColl.countDocuments();
-                            if (count == 0) {
-                                Log.d("LOCALCOLL RESULTS ",  Long.toString(count));
-                                localColl.insertMany(defaultLocalDocuments);
-                            }
-
-                            result.success(stitchUser.getId());
+                        List<Document> d = new ArrayList<>();
+                        long count = localColl.countDocuments();
+                        if (count == 0) {
+                            Log.d("LOCALCOLL RESULTS ",  Long.toString(count));
+                            localColl.insertMany(defaultLocalDocuments);
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            System.out.println("Failed Login " + e.getMessage());
-                            result.error(e.getLocalizedMessage(), e.getMessage(), e);
-                        }
-                    });;
+
+                        result.success(stitch.getClient().getAuth().getUser().getId());
                         break;
                     case "getUserId":
                         result.success(_client.getAuth().getUser().getId());

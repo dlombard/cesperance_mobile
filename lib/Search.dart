@@ -7,8 +7,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'NoNetworkAlertDialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'BaseContainer.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:cesperance/commons/Ads.dart';
 import 'dart:async';
 
 final String assetName =
@@ -22,10 +20,6 @@ class Search extends StatefulWidget {
 }
 
 class SearchState extends State<Search> {
-  BannerAd bannerAd = BannerAd(
-      adUnitId: "ca-app-pub-4264401776338564/2947306743",
-      targetingInfo: Ads().getTargetingInfo(),
-      size: AdSize.banner);
   Map<String, dynamic> _results = Map();
   List<Song> _hits = List();
   String text = '';
@@ -46,17 +40,11 @@ class SearchState extends State<Search> {
 
   @override
   void dispose() {
-    bannerAd.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    bannerAd
-      ..load()
-      ..show(
-          anchorOffset: AppBar().preferredSize.height + 5,
-          anchorType: AnchorType.bottom);
     return BaseContainer(
         child: Container(
             decoration: BoxDecoration(
@@ -99,12 +87,10 @@ class SearchState extends State<Search> {
                                   style: TextStyle(fontSize: 24.0),
                                   softWrap: true,
                                   textAlign: TextAlign.center,
-
                                 ),
                               )
                             ],
                           ))),
-
               ],
             )));
   }
@@ -146,7 +132,9 @@ class SearchState extends State<Search> {
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(subtitle,
-                      style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.w700))),
+                      style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w700))),
               Html(
                   data: snippet,
                   defaultTextStyle:

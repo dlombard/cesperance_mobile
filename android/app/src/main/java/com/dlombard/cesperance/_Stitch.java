@@ -6,7 +6,7 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.local.LocalMongoDbService;
 
 public class _Stitch {
-    private StitchAppClient client;
+    private static StitchAppClient client;
     private MongoClient mongoClient;
 
     _Stitch(){

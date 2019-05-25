@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/State.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
-final appId = 'ca-app-pub-4264401776338564~2548809350';
 class _InheritedStateContainer extends InheritedWidget {
   final AppState data;
   const _InheritedStateContainer({
@@ -36,8 +34,6 @@ class AppState extends State<AppStateWidget> {
   @override
   void initState() {
     super.initState();
-
-    FirebaseAdMob.instance.initialize(appId: appId);
   }
 
   @override
